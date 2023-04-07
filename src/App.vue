@@ -1,6 +1,6 @@
 <template>
   <div>
-     <router-view></router-view>
+     <MyHome/>
   </div>
    
 <!-- <h3>{{ animeList[0] }}</h3> -->
@@ -9,14 +9,14 @@
 </template>
 
 <script>
-//import MyHome from './components/my-home.vue'
+import MyHome from './components/my-home.vue'
 
 //import axios from 'axios'
 
 export default {
   name: 'App',
   components: {
-    //MyHome,
+    MyHome,
   },
 }
 </script>

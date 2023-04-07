@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Titre de l'animé</h1>
+        <h1>{{ anime.title }}</h1>
         <p>image de l'animé</p>
         <p>genre</p>
         <p>année</p>
@@ -11,7 +11,22 @@
     
 
 <script>
+
 export default{
     name: 'AnimeDetails',
+    props :{
+        anime: { 
+            type: Object,
+            required:true,
+        }
+    },
+    data(){
+        return{
+            animeD : Object
+        }
+    },
+    mounted(){
+        this.animeD = this.$route.params.anime;
+     }
 }
 </script>

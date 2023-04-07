@@ -1,9 +1,18 @@
 import axios from 'axios';
 
 async function getTopAnime(){
-    let response = await axios.get('https://api.jikan.moe/v4/top/anime');
+    // let total_result = [];
+    // for(let i in [1,2,3]){
+        let response = await axios.get(`https://api.jikan.moe/v4/top/anime`);
+        // total_result.concat(response.data.data);
+        
+    // }
 
-    return response.data.data;
+    console.log(response.data.data)
+
+    // return total_result;
+
+    return(response.data.data);
 }
 
 // async function getTopManga(){
@@ -15,6 +24,8 @@ async function getTopAnime(){
 // async function getRecommendAnime(){
 //     let response = await axios.get('https://api.jikan.moe/v4/recommendations/anime');
 
+//     console.log(response.data.data)
+
 //     return response.data.data;
 // }
 
@@ -22,6 +33,10 @@ async function getTopAnime(){
 //     let response = await axios.get('https://api.jikan.moe/v4/recommendations/manga');
 
 //     return response.data.data;
+// }
+
+// async function getSearcAnime(animeId){
+//     let response = await axios.get('')
 // }
 
 

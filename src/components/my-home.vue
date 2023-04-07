@@ -14,14 +14,31 @@
       <p>Mon profil</p>
     </div>
   </nav>
+
     <div class="titre">
         <h1>{{ title }}</h1>
-        <p>Ce site va être trop stylé mais je ne sais pas encore ce que je vais mettre dedans !</p>
-        
+        <p>Recherche un animé :</p>
+
+        <div class="searchBar">
+          <form action="" @submit.prevent = "handleSearch">
+            <input type="text" v-model="search" class="search" placeholder="Tape ta recherche :)">
+            <input type="submit" name="submit" class="submit" alt="soumettre">
+          </form>
+        </div>
+
     </div>
+    <dropdown class="genres"
+              :options="genres"
+              :selected="genre"
+              v-on:updateOption="runSelect"
+              :placeholder="Genre"
+              :close-on-outside-click="boolean">
+    </dropdown>
+
+
     <div class="cards">
       <anime-card 
-        v-for="anime in animeList"
+        v-for="anime in filteredList"
         :key="anime?.mal_id"
         :anime="anime" />
     </div>
@@ -30,13 +47,22 @@
 <script>
 import AnimeCard from './anime-card.vue'
 import {getTopAnime} from '@/assets/services/api/AnimRepo'
+import axios from 'axios'
+import dropdown from 'vue-dropdowns'
 
 export default{
     name : 'MyHome',
-    components: {AnimeCard},
+    components: 
+    { AnimeCard,
+      'dropdown' : dropdown,
+    },
     data(){
     return{
       animeList : [],
+      filteredList :[],
+      search : "",
+      genres : [{name:"All", value:"All"}, {name: "Action", value: "Action"}, {name: "Aventure", value:"Adventure"}, {name: "Comédie", value: "Comedy"}, {name: "Drame", value:"Drama"}, {name: "Romance", value:"Romance"}],
+      genre : {name: 'Genre' },
     }
   },
   created:function(){
@@ -44,9 +70,50 @@ export default{
   },
   methods:{
 
+    filterGenre(){
+
+      if(this.genre.value == "All"){
+        this.filteredList = this.animeList;
+      }
+      else{
+      this.filteredList = this.animeList.filter(anime => {
+        let genreTab = [];
+        for (let i in anime.genres) {
+          genreTab.push(anime.genres[i].name);
+        }
+        
+        if(genreTab.includes(this.genre.value))
+          return true;
+        else
+          return false;
+      });
+    }
+    },
+
+    runSelect(payload){
+      this.genre = payload;
+      this.filterGenre();
+      console.log(this.genre.name);
+    },
+
     async chargeAnimeDatas (){
       this.animeList = await getTopAnime();
-    }
+      this.filteredList = this.animeList;
+    },
+
+    async handleSearch (){
+      if(this.search !== ""){
+        this.animeList = (await axios.get(`https://api.jikan.moe/v4/anime?q=${this.search}`)).data.data;
+      }
+      else{
+        this.animeList = await getTopAnime();
+      }
+      
+    },
+
+    // async chargeSearchAnimes(){
+    //   this.animeList = await getSearchAnime();
+    // }
 
   },
 }
@@ -64,4 +131,47 @@ export default{
     justify-content: center;
 
 }
+form{
+  width: 50%;
+  margin: auto;
+}
+input{
+  padding: 4px 10px;
+  border: 0px;
+  font-size: 16px;
+}
+
+.search{
+  width: 75%;
+}
+
+.searchBar input[type="submit"]{
+  width: 50px;
+  height: 50px;
+  background-image: url(https://cdn-icons-png.flaticon.com/512/6671/6671414.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  color:transparent;
+  background-color: transparent;
+  cursor: pointer;
+  
+}
+
+.genres {
+  border-radius: 5px;
+}
+
+  ::v-deep .genres {
+    color: tomato;
+    font-size: 25px;
+    font-weight: 800;
+  }
+
+  ::v-deep .dropdown-toggle-placeholder {
+    color: #c4c4c4;
+  }
+
+
+
+
 </style>

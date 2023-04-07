@@ -1,9 +1,9 @@
 <template>
     <div class="card">
-        <router-link :to="{name: 'Details'}">
+        <!-- <router-link :to="{name: 'Details', params: {anime: anime}}"> -->
             <img :src="anime?.images.jpg.image_url">
             <h5>{{anime?.title}}</h5>
-        </router-link>
+        <!-- </router-link> -->
     </div>
 </template>
 
@@ -12,7 +12,9 @@ export default{
     name : 'AnimeCard',
     props: {
         anime : Object,
-        }
+        },
+    methods:{
+    }
 }
 </script>
 
@@ -33,7 +35,7 @@ export default{
         width: 100%;
         height: 90%;
         object-fit: cover;
-        border-radius: 10px;
+        border-radius: 5px;
         transition: 0.4s;
     }
 
@@ -42,6 +44,7 @@ export default{
     }
 
     .card h5{
+        font-size: 0.7em;
         margin:2px;
         transition:0.4s; 
     }
