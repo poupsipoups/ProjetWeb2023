@@ -15,6 +15,14 @@ async function getTopAnime(){
     return(response.data.data);
 }
 
+async function getAnimeCharacters(id){
+    let response = await axios.get(`https://api.jikan.moe/v4/anime/${id}/characters`);
+
+    console.log(response.data.data);
+
+    return response.data.data.slice(0,20);
+}
+
 // async function getTopManga(){
 //     let response = await axios.get('https://api.jikan.moe/v4/top/manga');
 
@@ -40,4 +48,4 @@ async function getTopAnime(){
 // }
 
 
-export {getTopAnime};
+export {getTopAnime, getAnimeCharacters};

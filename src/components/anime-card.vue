@@ -1,21 +1,38 @@
 <template>
     <div class="card">
-        <!-- <router-link :to="{name: 'Details', params: {anime: anime}}"> -->
-            <img :src="anime?.images.jpg.image_url">
-            <h5>{{anime?.title}}</h5>
-        <!-- </router-link> -->
+            <img :src="anime?.images.jpg.image_url" @click="openDetails">
+            <h5 @click="openDetails">{{anime?.title}}</h5>
+            <AnimeDetails v-if="detailsVisible" :anime="anime" v-on:close="closeDetails"></AnimeDetails>
     </div>
 </template>
 
 <script>
+import AnimeDetails from './anime-card-detail.vue'
+
 export default{
     name : 'AnimeCard',
     props: {
         anime : Object,
         },
+    components:{
+        AnimeDetails,
+    },
+    data(){
+        return{
+            //detailsVisible : false,
+            detailsVisible : false,
+        }
+    },
     methods:{
+        openDetails(){
+            this.detailsVisible = true;
+        },
+        closeDetails(){
+            this.detailsVisible = false;
+        }
     }
 }
+
 </script>
 
 <style>
@@ -25,6 +42,7 @@ export default{
         width: 20%;
         padding: 8px;
         margin: 16px 0; 
+        cursor: pointer;
     }
 
     .card a{

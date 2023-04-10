@@ -27,20 +27,21 @@
         </div>
 
     </div>
-    <dropdown class="genres"
+    <!-- <dropdown class="genres"
               :options="genres"
               :selected="genre"
               v-on:updateOption="runSelect"
               :placeholder="Genre"
               :close-on-outside-click="boolean">
-    </dropdown>
+    </dropdown> -->
+    <FilterButton :options="genreOptions" defaultOption="Genre" @selection="filterGenre"></FilterButton>
 
 
     <div class="cards">
       <anime-card 
         v-for="anime in filteredList"
         :key="anime?.mal_id"
-        :anime="anime" />
+        :anime="anime"/>
     </div>
 </template>
 
@@ -48,21 +49,22 @@
 import AnimeCard from './anime-card.vue'
 import {getTopAnime} from '@/assets/services/api/AnimRepo'
 import axios from 'axios'
-import dropdown from 'vue-dropdowns'
+import FilterButton from './filterButton.vue'
+//import dropdown from 'vue-dropdowns'
 
 export default{
     name : 'MyHome',
     components: 
     { AnimeCard,
-      'dropdown' : dropdown,
+      //'dropdown' : dropdown,
+      FilterButton,
     },
     data(){
     return{
       animeList : [],
       filteredList :[],
       search : "",
-      genres : [{name:"All", value:"All"}, {name: "Action", value: "Action"}, {name: "Aventure", value:"Adventure"}, {name: "Comédie", value: "Comedy"}, {name: "Drame", value:"Drama"}, {name: "Romance", value:"Romance"}],
-      genre : {name: 'Genre' },
+      genreOptions : [{name:"All", value:"All"}, {name: "Action", value: "Action"}, {name: "Aventure", value:"Adventure"}, {name: "Comédie", value: "Comedy"}, {name: "Drame", value:"Drama"}, {name: "Romance", value:"Romance"}],
     }
   },
   created:function(){
@@ -70,9 +72,12 @@ export default{
   },
   methods:{
 
-    filterGenre(){
 
-      if(this.genre.value == "All"){
+    filterGenre(genre){
+
+      console.log(genre.value)
+
+      if(genre.value == "All"){
         this.filteredList = this.animeList;
       }
       else{
@@ -82,18 +87,12 @@ export default{
           genreTab.push(anime.genres[i].name);
         }
         
-        if(genreTab.includes(this.genre.value))
+        if(genreTab.includes(genre.value))
           return true;
         else
           return false;
       });
     }
-    },
-
-    runSelect(payload){
-      this.genre = payload;
-      this.filterGenre();
-      console.log(this.genre.name);
     },
 
     async chargeAnimeDatas (){
@@ -108,6 +107,8 @@ export default{
       else{
         this.animeList = await getTopAnime();
       }
+
+      this.filteredList = this.animeList;
       
     },
 
@@ -170,6 +171,70 @@ input{
   ::v-deep .dropdown-toggle-placeholder {
     color: #c4c4c4;
   }
+
+  .dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  padding: 8px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
+
+.dropdown-menu li {
+  display: block;
+  padding: 5px 10px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f5f5f5;
+}
+
+.dropdown-menu li:first-child {
+  margin-top: 0;
+}
+
+.dropdown-menu li:last-child {
+  margin-bottom: 0;
+}
+
+.dropdown-menu li a:hover {
+  text-decoration: none;
+  color: #262626;
+  background-color: #f5f5f5;
+}
+
+.dropdown-menu .active a,
+.dropdown-menu .active a:hover {
+  color: #fff;
+  background-color: #337ab7;
+}
 
 
 

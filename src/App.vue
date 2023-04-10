@@ -24,7 +24,7 @@ export default {
 <style>
 
 html{
-  background-color: blanchedalmond;
+  background : linear-gradient(to right bottom,rgba(255,105,180,0.6), rgba(255,99,71,0.5));
 }
 
 #app {
