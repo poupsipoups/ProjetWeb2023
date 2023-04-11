@@ -32,14 +32,14 @@
     },
     methods: {
         toggleDropdown() {
-  console.log("Before toggle - isOpen:", this.isOpen, "selectedOption:", this.selectedOption);
-  if (this.isOpen && this.selectedOption) {
-    this.isOpen = false;
-  } else {
-    this.isOpen = !this.isOpen;
-  }
-  console.log("After toggle - isOpen:", this.isOpen, "selectedOption:", this.selectedOption);
-},
+            
+            if (this.isOpen && this.selectedOption) {
+                this.isOpen = false;
+            } else {
+                this.isOpen = !this.isOpen;
+            }
+  
+        },
 
       selectOption(option) {
         console.log("option : ", option)

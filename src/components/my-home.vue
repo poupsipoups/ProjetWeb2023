@@ -35,7 +35,7 @@
               :close-on-outside-click="boolean">
     </dropdown> -->
     <FilterButton :options="genreOptions" defaultOption="Genre" @selection="filterGenre"></FilterButton>
-
+    <FilterButton :options="yearOptions" defaultOption="Year" @selection="filterYear"></FilterButton>
 
     <div class="cards">
       <anime-card 
@@ -60,11 +60,21 @@ export default{
       FilterButton,
     },
     data(){
+      const currentYear = new Date().getFullYear();
+      const years = [];
+      for (let i = 0; i < 15; i++) {
+        years.push(currentYear - i);
+      }
+      const yearsObject = years.map(year => 
+      {return {name: year, value: year}})
+      yearsObject.unshift({name: "Year", value: "Year"});
+
     return{
       animeList : [],
       filteredList :[],
       search : "",
-      genreOptions : [{name:"All", value:"All"}, {name: "Action", value: "Action"}, {name: "Aventure", value:"Adventure"}, {name: "Comédie", value: "Comedy"}, {name: "Drame", value:"Drama"}, {name: "Romance", value:"Romance"}],
+      genreOptions : [{name:"Genre", value:"Genre"}, {name: "Action", value: "Action"}, {name: "Aventure", value:"Adventure"}, {name: "Comédie", value: "Comedy"}, {name: "Drame", value:"Drama"}, {name: "Romance", value:"Romance"}],
+      yearOptions : yearsObject,
     }
   },
   created:function(){
@@ -72,12 +82,13 @@ export default{
   },
   methods:{
 
+    /* FILTER METHODS */
 
     filterGenre(genre){
 
       console.log(genre.value)
 
-      if(genre.value == "All"){
+      if(genre.value == "Genre"){
         this.filteredList = this.animeList;
       }
       else{
@@ -95,6 +106,27 @@ export default{
     }
     },
 
+    filterYear(year){
+
+      if(year.value == "Year"){
+        this.filteredList = this.animeList;
+      }
+      else{
+      this.filteredList = this.animeList.filter(anime => anime.year===year.value);
+      }
+
+    },
+
+    /* SORTING METHODS */
+    
+    //SORTING BY POPULARITY
+
+    //SORTING BY NAME
+
+    //SORTING BY AIRING DATE
+
+    /* CHARGING DATA METHODS */
+
     async chargeAnimeDatas (){
       this.animeList = await getTopAnime();
       this.filteredList = this.animeList;
@@ -111,10 +143,6 @@ export default{
       this.filteredList = this.animeList;
       
     },
-
-    // async chargeSearchAnimes(){
-    //   this.animeList = await getSearchAnime();
-    // }
 
   },
 }
