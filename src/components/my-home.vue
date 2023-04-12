@@ -18,6 +18,7 @@
     <div class="titre">
         <h1>{{ title }}</h1>
         <p>Recherche un animé :</p>
+        <button @click="sortByScore">Sort button</button>
 
         <div class="searchBar">
           <form action="" @submit.prevent = "handleSearch">
@@ -36,6 +37,7 @@
     </dropdown> -->
     <FilterButton :options="genreOptions" defaultOption="Genre" @selection="filterGenre"></FilterButton>
     <FilterButton :options="yearOptions" defaultOption="Year" @selection="filterYear"></FilterButton>
+    <FilterButton :options="sortingOption" defaultOption="SortBy" @selection="sortAnimes"></FilterButton>
 
     <div class="cards">
       <anime-card 
@@ -75,6 +77,7 @@ export default{
       search : "",
       genreOptions : [{name:"Genre", value:"Genre"}, {name: "Action", value: "Action"}, {name: "Aventure", value:"Adventure"}, {name: "Comédie", value: "Comedy"}, {name: "Drame", value:"Drama"}, {name: "Romance", value:"Romance"}],
       yearOptions : yearsObject,
+      sortingOption : [{name:"Popularity", value:"popularity"}, {name:"Name", value:"name"}, {name:"Airing date", value:"airing"}, {name:"Score", value:"score"}],
     }
   },
   created:function(){
@@ -118,12 +121,58 @@ export default{
     },
 
     /* SORTING METHODS */
+
+    //MAIN SORTING
+    sortAnimes(option){
+      console.log("je passe")
+      if(option.value == "popularity"){
+        this.sortByPopularity();
+      }
+      if(option.value == "name"){
+        this.sortByName();
+      }
+      if(option.value == "airing"){
+        this.sortByAiringDate();
+      }
+      if(option.value == "score"){
+        this.sortByScore();
+      }
+    },
     
     //SORTING BY POPULARITY
 
+    sortByPopularity(){
+      this.animeList.sort((a,b)=> b.popularity - a.popularity);
+      console.log(this.animeList)
+    },
+
     //SORTING BY NAME
+    sortByName(){
+      this.animeList.sort((a,b)=> a.title.localeCompare(b.title) );
+      console.log(this.animeList)
+    },
 
     //SORTING BY AIRING DATE
+    sortByAiringDate(){
+      this.animeList.sort((a,b)=> {
+        const dateA = new Date(a.aired.from).getTime();
+        const dateB = new Date(b.aired.from).getTime();
+
+        if(dateA < dateB){
+          return 1;
+        }
+        else{
+          return -1;
+        }
+      });
+      console.log(this.animeList)
+    },
+
+    //SORTING BY SCORE
+    sortByScore(){
+      this.animeList.sort((a,b)=> b.score - a.score);
+      console.log(this.animeList);
+    },
 
     /* CHARGING DATA METHODS */
 
