@@ -2,10 +2,10 @@
     <div class ="popup">
         <div class="popup-inner">
             <div class="popup-header">
-                <div class="animeImage">
-                    <img :src="anime?.images.jpg.image_url" alt="anime s image">
+                <div class="mangaImage">
+                    <img :src="manga?.images.jpg.image_url" alt="manga s image">
                 </div>
-                <h2>{{ anime.title }}</h2>
+                <h2>{{ manga.title }}</h2>
                 <button type="button" @click="close()">X</button>
                 
             </div>
@@ -13,11 +13,11 @@
             <div class="content">
                 
                 <p>Genre :</p>
-                <div class="animeGenres" v-for="genre in this.anime.genres" :key="genre">
+                <div class="mangaGenres" v-for="genre in this.manga.genres" :key="genre">
                     <span class="w3-tag w3-round w3-pink  w3-border w3-border-white">{{ genre.name }}</span>
                 </div>
-                <p v-if="this.anime.year !== undefined">{{this.anime.year}}</p>
-                <p>{{this.anime.synopsis}}</p>
+                <p v-if="this.manga.year !== undefined">{{this.manga.year}}</p>
+                <p>{{this.manga.synopsis}}</p>
                 <div class="characters">
                     <p>Characters : </p>
                     <div class="characters-content">
@@ -34,12 +34,12 @@
 
 <script>
 
-import {getAnimeCharacters} from '@/assets/services/api/AnimRepo'
+import {getMangaCharacters} from '@/assets/services/api/AnimRepo'
 
 export default{
-    name: 'AnimeDetails',
+    name: 'MangaDetails',
     props :{
-        anime: { 
+        manga: { 
             type: Object,
             required:true,
         },
@@ -60,13 +60,13 @@ export default{
 
         displayGenres(){
             let genreTab = [];
-            for (let i in this.anime.genres) {
-            genreTab.push(this.anime.genres[i].name);
+            for (let i in this.manga.genres) {
+            genreTab.push(this.manga.genres[i].name);
             }
         return genreTab;
         },
         async chargeCharacters(){
-            this.characters = await getAnimeCharacters(this.anime.mal_id);
+            this.characters = await getMangaCharacters(this.manga.mal_id);
             console.log(this.characters)
         },
 
@@ -79,7 +79,7 @@ export default{
 
 <style>
 
-.popup {
+/* .popup {
     position: fixed; 
     top: 0;
     left: 0;
@@ -129,7 +129,7 @@ export default{
   right: 10px;
 }
 
-.popup-inner .animeImage{
+.popup-inner .mangaImage{
     max-width: 25%;
     z-index: auto;
     position : absolute;
@@ -151,7 +151,7 @@ export default{
     transition: transform 0.25s;
     width: 10vh;
     height: 10vh;
-}
+} */
 
 
 </style>

@@ -42,7 +42,6 @@
         },
 
       selectOption(option) {
-        console.log("option : ", option)
         this.$emit("selection", option);
         this.selectedOption = option;
         this.isOpen = false;

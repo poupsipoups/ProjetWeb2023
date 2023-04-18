@@ -24,18 +24,19 @@ import axios from 'axios';
 async function getTopAnime() {
     let totalResult = [];
   
-    for (let page = 1; page <= 4; page++) {
+    for (let page = 1; page <= 3; page++) {
       let responseTv = await axios.get(`https://api.jikan.moe/v4/top/anime`, {
-        params: { page: page, limit: 100, type: "TV" }
+        params: { page: page, type: "TV" }
       });
   
-      let responseMovie = await axios.get(`https://api.jikan.moe/v4/top/anime`, {
-        params: { page: page, limit: 100, type: "Movie" }
-      });
+      // let responseMovie = await axios.get(`https://api.jikan.moe/v4/top/anime`, {
+      //   params: { page: page, type: "Movie" }
+      // });
   
-      totalResult = totalResult.concat(responseTv.data.data, responseMovie.data.data);
+      // totalResult = totalResult.concat(responseTv.data.data, responseMovie.data.data);
   
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      //await new Promise(resolve => setTimeout(resolve, 1000));
+      totalResult = responseTv.data.data.sort(()=> Math.random()-0.5);
     }
   
     console.log(totalResult);
@@ -51,11 +52,20 @@ async function getAnimeCharacters(id){
     return response.data.data.slice(0,20);
 }
 
-// async function getTopManga(){
-//     let response = await axios.get('https://api.jikan.moe/v4/top/manga');
+async function getTopManga(){
+    let response = await axios.get('https://api.jikan.moe/v4/top/manga');
 
-//     return response.data.data;
-// }
+    console.log(response.data.data)
+    return response.data.data;
+}
+
+async function getMangaCharacters(id){
+  let response = await axios.get(`https://api.jikan.moe/v4/manga/${id}/characters`);
+
+  console.log(response.data.data);
+
+  return response.data.data.slice(0,20);
+}
 
 // async function getRecommendAnime(){
 //     let response = await axios.get('https://api.jikan.moe/v4/recommendations/anime');
@@ -76,4 +86,4 @@ async function getAnimeCharacters(id){
 // }
 
 
-export {getTopAnime, getAnimeCharacters};
+export {getTopAnime, getAnimeCharacters, getTopManga, getMangaCharacters};

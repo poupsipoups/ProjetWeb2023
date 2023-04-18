@@ -1,40 +1,10 @@
 <template>
-    <nav>
-    <div class="gauche">
-      <img alt="Vue logo" src="https://cdn-icons-png.flaticon.com/512/5722/5722057.png" height="40">
-      <p>Le repère de <strong>Poups</strong></p>
-   </div>
-   <div class="onglets">
-        <router-link to="/">Home</router-link>
-        <p>Liste d'animés</p>
-        <p>Liste de mangas</p>
-        <p>Recherche</p>
-    </div>
-    <div class="droite">
-      <p>Mon profil</p>
-    </div>
-  </nav>
+    <Navbar></Navbar>
 
     <div class="titre">
-        <h1>{{ title }}</h1>
-        <p>Recherche un animé :</p>
-        <button @click="sortByScore">Sort button</button>
-
-        <div class="searchBar">
-          <form action="" @submit.prevent = "handleSearch">
-            <input type="text" v-model="search" class="search" placeholder="Tape ta recherche :)">
-            <input type="submit" name="submit" class="submit" alt="soumettre">
-          </form>
-        </div>
-
+        <SearchBar placeHolder="Find you anime..." @search="handleSearch"></SearchBar>
     </div>
-    <!-- <dropdown class="genres"
-              :options="genres"
-              :selected="genre"
-              v-on:updateOption="runSelect"
-              :placeholder="Genre"
-              :close-on-outside-click="boolean">
-    </dropdown> -->
+  
     <FilterButton :options="genreOptions" defaultOption="Genre" @selection="filterGenre"></FilterButton>
     <FilterButton :options="yearOptions" defaultOption="Year" @selection="filterYear"></FilterButton>
     <FilterButton :options="sortingOption" defaultOption="SortBy" @selection="sortAnimes"></FilterButton>
@@ -52,14 +22,16 @@ import AnimeCard from './anime-card.vue'
 import {getTopAnime} from '@/assets/services/api/AnimRepo'
 import axios from 'axios'
 import FilterButton from './filterButton.vue'
-//import dropdown from 'vue-dropdowns'
+import Navbar from './navBar.vue'
+import SearchBar from './searchBar.vue'
 
 export default{
-    name : 'MyHome',
+    name : 'AnimeHome',
     components: 
     { AnimeCard,
-      //'dropdown' : dropdown,
       FilterButton,
+      Navbar,
+      SearchBar,
     },
     data(){
       const currentYear = new Date().getFullYear();
@@ -74,7 +46,7 @@ export default{
     return{
       animeList : [],
       filteredList :[],
-      search : "",
+      //search : "",
       genreOptions : [{name:"Genre", value:"Genre"}, {name: "Action", value: "Action"}, {name: "Aventure", value:"Adventure"}, {name: "Comédie", value: "Comedy"}, {name: "Drame", value:"Drama"}, {name: "Romance", value:"Romance"}],
       yearOptions : yearsObject,
       sortingOption : [{name:"Popularity", value:"popularity"}, {name:"Name", value:"name"}, {name:"Airing date", value:"airing"}, {name:"Score", value:"score"}],
@@ -88,8 +60,6 @@ export default{
     /* FILTER METHODS */
 
     filterGenre(genre){
-
-      console.log(genre.value)
 
       if(genre.value == "Genre"){
         this.filteredList = this.animeList;
@@ -143,13 +113,11 @@ export default{
 
     sortByPopularity(){
       this.animeList.sort((a,b)=> b.popularity - a.popularity);
-      console.log(this.animeList)
     },
 
     //SORTING BY NAME
     sortByName(){
       this.animeList.sort((a,b)=> a.title.localeCompare(b.title) );
-      console.log(this.animeList)
     },
 
     //SORTING BY AIRING DATE
@@ -165,14 +133,13 @@ export default{
           return -1;
         }
       });
-      console.log(this.animeList)
     },
 
     //SORTING BY SCORE
     sortByScore(){
       this.animeList.sort((a,b)=> b.score - a.score);
-      console.log(this.animeList);
     },
+
 
     /* CHARGING DATA METHODS */
 
@@ -181,9 +148,9 @@ export default{
       this.filteredList = this.animeList;
     },
 
-    async handleSearch (){
-      if(this.search !== ""){
-        this.animeList = (await axios.get(`https://api.jikan.moe/v4/anime?q=${this.search}`)).data.data;
+    async handleSearch (search){
+      if(search !== ""){
+        this.animeList = (await axios.get(`https://api.jikan.moe/v4/anime?q=${search}`)).data.data;
       }
       else{
         this.animeList = await getTopAnime();
@@ -199,16 +166,30 @@ export default{
 </script>
 
 <style>
+
+/* CSS HEX */
+/* --air-force-blue: #54889Eff;
+--butterscotch: #EB9D4Bff;
+--champagne-pink: #EEE1D9ff;
+--melon: #E4A4A4ff;
+--brown-sugar: 0; */
+
+
 .cards{
+    margin:auto;
     max-width: 1000px;
-    margin: 0 auto;
-    padding-left: 30px;
-    padding-right: 30px;;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 10px;
 
 }
+
+.cards::after{
+  content: "";
+  flex-basis: 150px;
+}
+
 form{
   width: 50%;
   margin: auto;
@@ -219,21 +200,7 @@ input{
   font-size: 16px;
 }
 
-.search{
-  width: 75%;
-}
 
-.searchBar input[type="submit"]{
-  width: 50px;
-  height: 50px;
-  background-image: url(https://cdn-icons-png.flaticon.com/512/6671/6671414.png);
-  background-repeat: no-repeat;
-  background-size: contain;
-  color:transparent;
-  background-color: transparent;
-  cursor: pointer;
-  
-}
 
 .genres {
   border-radius: 5px;

@@ -1,7 +1,7 @@
 <template>
     <div class="card">
             <img :src="anime?.images.jpg.image_url" @click="openDetails">
-            <h5 @click="openDetails">{{anime?.title}}</h5>
+            <div @click="openDetails" class="overlay"><h5>{{anime?.title}}</h5></div>
             <AnimeDetails v-if="detailsVisible" :anime="anime" v-on:close="closeDetails"></AnimeDetails>
     </div>
 </template>
@@ -37,38 +37,50 @@ export default{
 
 <style>
     .card{
-        flex: 1 1 20%;
+        /* flex: 1 1 auto;
         max-width: 20%;
         width: 20%;
-        padding: 8px;
-        margin: 16px 0; 
+        margin: 2em 0; 
+        height: 300px; */
         cursor: pointer;
+        position: relative; 
+        flex-basis: 150px;
     }
 
-    .card a{
-        text-decoration: none;
-    }
 
     .card img{
-        width: 100%;
-        height: 90%;
         object-fit: cover;
+        max-width: 100%;
+        height: 100%;
         border-radius: 5px;
-        transition: 0.4s;
     }
 
     .card img:hover{
         transform: scale(1.05);
     }
 
-    .card h5{
-        font-size: 0.7em;
-        margin:2px;
-        transition:0.4s; 
+    .card .overlay{
+        opacity: 0%;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(182, 123, 105, 0.5);
+        top: 0;
+        left:0;
+   
+        transition: 0.5s;
+        color: #fff;
+        border-radius:5px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
     }
 
-    .card h5:hover{
-        color:hotpink;
+    .card:hover .overlay{
+        opacity: 100%;
+        transition: 0.5s;
     }
 
 </style>
