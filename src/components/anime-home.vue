@@ -190,15 +190,16 @@ export default{
   flex-basis: 150px;
 }
 
-form{
+/* form{
   width: 50%;
   margin: auto;
 }
+
 input{
   padding: 4px 10px;
   border: 0px;
   font-size: 16px;
-}
+} */
 
 
 
