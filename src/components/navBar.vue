@@ -3,7 +3,8 @@
       <nav>
         <div class="gauche">
           <img alt="Vue logo" src="https://cdn-icons-png.flaticon.com/512/5722/5722057.png" height="40">
-          <a href="#"><strong>Poups</strong>' corner</a>
+          <router-link to="/anime"><strong>Poups</strong>' corner</router-link>
+          <!-- <a href="/anime"><strong>Poups</strong>' corner</a> -->
         </div>
         <ul class="links">
             <li><router-link to="/anime" class="link">Anime List</router-link></li>
@@ -11,12 +12,14 @@
         </ul>
 
         <a href="#" class="action_btn">My favorites</a>
-        <div class="toggle_btn">
+        <div class="toggle_btn" @click="toggleBtn">
           <i class="fa-solid fa-bars"></i>
         </div>
 
         <div class="dropdown-nav">
-          
+          <li><router-link to="/anime" class="link">Anime List</router-link></li>
+          <li><router-link to="/manga" class="link">Manga List</router-link></li>
+          <a href="#" class="action_btn">My favorites</a>
         </div>
      
       </nav>
@@ -28,16 +31,16 @@
 
 export default{
  name: 'NavBar',
- methods:{
-  displayMenu(){
-    var x = document.getElementById("endNav");
-    if(x.className === "droite"){
-      x.className += " responsive";
+ data(){
+    return{
     }
-    else{
-      x.className = "droite";
-    }
-  },
+ },
+ methods: {
+
+  toggleBtn(){
+    const dropdownNav = document.querySelector('.dropdown-nav');
+    dropdownNav.classList.toggle('open');
+  }
 
  }
 }
@@ -113,6 +116,41 @@ nav .toggle_btn{
   scale: 0.95;
 }
 
+/* Dropdown */
+
+.dropdown-nav {
+  display: none;
+  position: absolute;
+  right: 2rem;
+  top: 60px;
+  width: 300px;
+  height: 0px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(15px) ;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: height .2s cubic-bezier(0.175,0.885, 0.32, 1.275);
+}
+
+.dropdown-nav.open{
+  height: 240px;
+}
+
+.dropdown-nav li{
+  padding: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown-nav .action_btn{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Responsive */
+
 @media(max-width : 800px){
   nav .links, 
   nav .action_btn{
@@ -122,7 +160,12 @@ nav .toggle_btn{
   nav .toggle_btn{
     display: block;
   }
+
+  .dropdown-nav{
+    display: block;
+  }
 }
+
 
 
 
