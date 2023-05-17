@@ -6,20 +6,23 @@
           <router-link to="/anime"><strong>Poups</strong>' corner</router-link>
           <!-- <a href="/anime"><strong>Poups</strong>' corner</a> -->
         </div>
-        <ul class="links">
-            <li><router-link to="/anime" class="link">Anime List</router-link></li>
-            <li><router-link to="/manga" class="link">Manga List</router-link></li>
-        </ul>
-
-        <a href="#" class="action_btn">My favorites</a>
-        <div class="toggle_btn" @click="toggleBtn">
-          <i class="fa-solid fa-bars"></i>
-        </div>
+          <div class="milieu">
+          <ul class="links">
+              <li><router-link to="/anime" class="link">Anime List</router-link></li>
+              <li><router-link to="/manga" class="link">Manga List</router-link></li>
+          </ul>
+          </div>
+          <div class="droite">
+          <a href="#" class="action_btn"><router-link to="/favorites">My favorites</router-link></a>
+          <div class="toggle_btn" @click="toggleBtn">
+            <i class="fa-solid fa-bars"></i>
+          </div>
+      </div>
 
         <div class="dropdown-nav">
           <li><router-link to="/anime" class="link">Anime List</router-link></li>
           <li><router-link to="/manga" class="link">Manga List</router-link></li>
-          <a href="#" class="action_btn">My favorites</a>
+          <a href="#" class="action_btn"> <router-link to="/favorites">My favorites</router-link> </a>
         </div>
      
       </nav>
@@ -70,12 +73,18 @@ header{
 
 nav{
   width: 100%;
-  height: 60px;
-  max-width: 1200px;
-  margin:0 auto;
+  height: 5em;
+  margin-bottom: 2em;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  padding: 2em;
+  position:fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  background-image: linear-gradient(to bottom, #EEE1D9ff, transparent);
 }
 
 nav .gauche a{

@@ -7,13 +7,15 @@
   
     <FilterButton :options="genreOptions" defaultOption="Genre" @selection="filterGenre"></FilterButton>
     <FilterButton :options="yearOptions" defaultOption="Year" @selection="filterYear"></FilterButton>
-    <FilterButton :options="sortingOption" defaultOption="SortBy" @selection="sortAnimes"></FilterButton>
+    <FilterButton :options="sortingOption" defaultOption="SortBy" @selection="sortMangas"></FilterButton>
 
     <div class="cards">
       <MangaCard
         v-for="manga in filteredList"
         :key="manga?.mal_id"
-        :manga="manga"/>
+        :manga="manga"
+        :favorites="favoriteMangas"
+        :updateFavorites="updateFavorites"/>
     </div>
 </template>
 
@@ -49,12 +51,29 @@ export default{
       genreOptions : [{name:"Genre", value:"Genre"}, {name: "Action", value: "Action"}, {name: "Aventure", value:"Adventure"}, {name: "Comédie", value: "Comedy"}, {name: "Drame", value:"Drama"}, {name: "Romance", value:"Romance"}],
       yearOptions : yearsObject,
       sortingOption : [{name:"Popularity", value:"popularity"}, {name:"Name", value:"name"}, {name:"Airing date", value:"airing"}, {name:"Score", value:"score"}],
+      favoriteMangas : [],
     }
   },
   created:function(){
     this.chargeMangaDatas()
   },
   methods:{
+
+    
+    updateFavorites(newFavorite){
+
+      var index = this.favoriteAnimes.findIndex(animeF => (animeF.mal_id === newFavorite.mal_id));
+
+      if(index === -1){
+        this.favoriteMangas.push(newFavorite);
+      }
+      else{
+        this.favoriteMangas.splice(index, 1);
+      }
+
+      //stock the tab in local storage
+      localStorage.setItem("favoris", JSON.stringify(this.favoriteMangas));    
+    },
 
     /* FILTER METHODS */
 
@@ -92,7 +111,7 @@ export default{
     /* SORTING METHODS */
 
     //MAIN SORTING
-    sortAnimes(option){
+    sortMangas(option){
       console.log("je passe")
       if(option.value == "popularity"){
         this.sortByPopularity();

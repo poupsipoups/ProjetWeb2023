@@ -4,16 +4,20 @@
     <div class="titre">
         <SearchBar placeHolder="Find you anime..." @search="handleSearch"></SearchBar>
     </div>
+    <div class="filters">
+      <FilterButton :options="genreOptions" defaultOption="Genre" @selection="filterGenre"></FilterButton>
+      <FilterButton :options="yearOptions" defaultOption="Year" @selection="filterYear"></FilterButton>
+      <FilterButton :options="sortingOption" defaultOption="SortBy" @selection="sortAnimes"></FilterButton>
+    </div>
   
-    <FilterButton :options="genreOptions" defaultOption="Genre" @selection="filterGenre"></FilterButton>
-    <FilterButton :options="yearOptions" defaultOption="Year" @selection="filterYear"></FilterButton>
-    <FilterButton :options="sortingOption" defaultOption="SortBy" @selection="sortAnimes"></FilterButton>
 
     <div class="cards">
       <anime-card 
         v-for="anime in filteredList"
         :key="anime?.mal_id"
-        :anime="anime"/>
+        :anime="anime"
+        :favorites="favoriteAnimes"
+        :updateFavorites="updateFavorites"/>
     </div>
 </template>
 
@@ -50,6 +54,7 @@ export default{
       genreOptions : [{name:"Genre", value:"Genre"}, {name: "Action", value: "Action"}, {name: "Aventure", value:"Adventure"}, {name: "Comédie", value: "Comedy"}, {name: "Drame", value:"Drama"}, {name: "Romance", value:"Romance"}],
       yearOptions : yearsObject,
       sortingOption : [{name:"Popularity", value:"popularity"}, {name:"Name", value:"name"}, {name:"Airing date", value:"airing"}, {name:"Score", value:"score"}],
+      favoriteAnimes : [],
     }
   },
   created:function(){
@@ -57,7 +62,37 @@ export default{
   },
   methods:{
 
+
+    /* FAVORITES */
+
+    updateFavorites(newFavorite){
+      var index = this.favoriteAnimes.findIndex(animeF => (animeF.mal_id === newFavorite.mal_id));
+      
+
+      if(index === -1){
+        this.favoriteAnimes.push(newFavorite);
+      }
+      else{
+        this.favoriteAnimes.splice(index, 1);
+      }
+
+      //console.log(this.favoriteAnimes)
+
+      //stock the tab in local storage
+      localStorage.setItem("favoris", JSON.stringify(this.favoriteAnimes));
+
+      var test = localStorage.getItem("favoris");
+
+      var objTest = JSON.parse(test);
+
+      console.log(objTest)
+
+       
+    },
+
     /* FILTER METHODS */
+
+   
 
     filterGenre(genre){
 
@@ -190,97 +225,13 @@ export default{
   flex-basis: 150px;
 }
 
-/* form{
-  width: 50%;
-  margin: auto;
+
+.filters {
+  margin: 1em auto;
+  max-width: 50%;
+  display: flex;
+  justify-content: space-between;
 }
-
-input{
-  padding: 4px 10px;
-  border: 0px;
-  font-size: 16px;
-} */
-
-
-
-.genres {
-  border-radius: 5px;
-}
-
-  ::v-deep .genres {
-    color: tomato;
-    font-size: 25px;
-    font-weight: 800;
-  }
-
-  ::v-deep .dropdown-toggle-placeholder {
-    color: #c4c4c4;
-  }
-
-  .dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-toggle {
-  padding: 8px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 1000;
-  display: none;
-  min-width: 160px;
-  padding: 5px 0;
-  margin: 2px 0 0;
-  font-size: 14px;
-  text-align: left;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-}
-
-.dropdown-menu li {
-  display: block;
-  padding: 5px 10px;
-  clear: both;
-  font-weight: normal;
-  line-height: 1.42857143;
-  color: #333;
-  white-space: nowrap;
-}
-
-.dropdown-menu li:hover {
-  background-color: #f5f5f5;
-}
-
-.dropdown-menu li:first-child {
-  margin-top: 0;
-}
-
-.dropdown-menu li:last-child {
-  margin-bottom: 0;
-}
-
-.dropdown-menu li a:hover {
-  text-decoration: none;
-  color: #262626;
-  background-color: #f5f5f5;
-}
-
-.dropdown-menu .active a,
-.dropdown-menu .active a:hover {
-  color: #fff;
-  background-color: #337ab7;
-}
-
 
 
 

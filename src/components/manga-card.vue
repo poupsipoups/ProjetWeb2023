@@ -3,6 +3,7 @@
             <img :src="manga?.images.jpg.image_url" @click="openDetails">
             <h5 @click="openDetails">{{manga?.title}}</h5>
             <MangaDetails v-if="detailsVisible" :manga="manga" v-on:close="closeDetails"/>
+            <button class="btn-favori"  @click="handleFavorites()"><i class="fas fa-heart"></i></button>
     </div>
 </template>
 
@@ -13,6 +14,8 @@ export default{
     name : 'MangaCard',
     props: {
         manga : Object,
+        updateFavorites: Function,
+        mangaFavorites: Array
         },
     components:{
         MangaDetails,
@@ -23,6 +26,9 @@ export default{
         }
     },
     methods:{
+        handleFavorites(){
+            this.updateFavorites(this.anime);
+        },
         openDetails(){
             this.detailsVisible = true;
         },

@@ -53,7 +53,7 @@ input,
 #cover{
   width: 100%;
   padding: 1em;
-  margin: 1em auto 0 auto;
+  margin: 5em auto 0 auto;
   background-color: #E4A4A4ff;
   border-radius: 20px;
   box-shadow: 0 10px 40px #E4A4A4ff, 0 0 0 20px #ffffffeb;

@@ -1,8 +1,11 @@
 <template>
     <div class="card">
             <img :src="anime?.images.jpg.image_url" @click="openDetails">
-            <div @click="openDetails" class="overlay"><h5>{{anime?.title}}</h5></div>
+            <div @click="openDetails" class="overlay">
+                <h5>{{anime?.title}}</h5>
+            </div>
             <AnimeDetails v-if="detailsVisible" :anime="anime" v-on:close="closeDetails"></AnimeDetails>
+            <button class="btn-favori"  @click="handleFavorites()"><i class="fas fa-heart"></i></button>
     </div>
 </template>
 
@@ -13,6 +16,8 @@ export default{
     name : 'AnimeCard',
     props: {
         anime : Object,
+        updateFavorites: Function,
+        animeFavorites: Array
         },
     components:{
         AnimeDetails,
@@ -21,6 +26,7 @@ export default{
         return{
             //detailsVisible : false,
             detailsVisible : false,
+            
         }
     },
     methods:{
@@ -29,7 +35,12 @@ export default{
         },
         closeDetails(){
             this.detailsVisible = false;
-        }
+        }, 
+            /* FAVORITES */
+
+    handleFavorites(){
+      this.updateFavorites(this.anime);
+    },
     }
 }
 
@@ -82,5 +93,21 @@ export default{
         opacity: 100%;
         transition: 0.5s;
     }
+
+    .btn-favori {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  color:  #54889Eff;
+  padding: 0;
+  position: absolute;
+  top: 1%;
+  left: 88%;
+}
+
+.btn-favori:hover {
+  color: red;
+}
 
 </style>
