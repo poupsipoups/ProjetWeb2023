@@ -79,79 +79,7 @@ export default{
 
 <style>
 
-/* .popup {
-    position: fixed; 
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0; 
-    background : linear-gradient(to right bottom, hotpink, tomato);
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-  }
-
-  .popup-inner {
-  background-color: white;
-  padding: 20px;
-  max-width: 600px;
-  width: 90%;
-  max-height: 80%;
-  position: relative;
-  overflow: visible;
-  border-radius: 1vh;
-  background: linear-gradient(to right bottom, rgba(255,255,255,0.7),rgba(255,255,255,0.3));
-}
-  
-  .popup-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  margin: auto;
-}
-
-.popup-header h2 {
-  margin: auto;
-  font-size:1em;
-  color: tomato;
-
-}
-
-.popup-header button {
-  border: none;
-  background-color: transparent;
-  font-size: 1.5rem;
-  cursor: pointer;
-  position : absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.popup-inner .mangaImage{
-    max-width: 25%;
-    z-index: auto;
-    position : absolute;
-    top:-10%;
-    left:-8%;
-    margin : 1em;
-
-}
-
-.characters .characters-content{
-    display:flex;
-    overflow-x:auto ;
-    flex-direction:row;
-}
-
-.characters .characters-img img{
-    display: flex;
-    padding-left:5px;
-    transition: transform 0.25s;
-    width: 10vh;
-    height: 10vh;
-} */
 
 
 </style>

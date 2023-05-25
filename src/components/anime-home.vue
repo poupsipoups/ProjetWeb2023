@@ -1,6 +1,5 @@
 <template>
-    <Navbar></Navbar>
-
+  <div class="lofi"></div>
     <div class="titre">
         <SearchBar placeHolder="Find you anime..." @search="handleSearch"></SearchBar>
     </div>
@@ -26,7 +25,6 @@ import AnimeCard from './anime-card.vue'
 import {getTopAnime} from '@/assets/services/api/AnimRepo'
 import axios from 'axios'
 import FilterButton from './filterButton.vue'
-import Navbar from './navBar.vue'
 import SearchBar from './searchBar.vue'
 
 export default{
@@ -34,7 +32,6 @@ export default{
     components: 
     { AnimeCard,
       FilterButton,
-      Navbar,
       SearchBar,
     },
     data(){
@@ -202,13 +199,6 @@ export default{
 
 <style>
 
-/* CSS HEX */
-/* --air-force-blue: #54889Eff;
---butterscotch: #EB9D4Bff;
---champagne-pink: #EEE1D9ff;
---melon: #E4A4A4ff;
---brown-sugar: 0; */
-
 
 .cards{
     margin:auto;
@@ -231,6 +221,7 @@ export default{
   max-width: 50%;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 

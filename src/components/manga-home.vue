@@ -1,5 +1,5 @@
 <template>
-    <Navbar></Navbar>
+  <div class="lofi"></div>
 
     <div class="titre">
         <SearchBar placeHolder="Find your manga..." @search="handleSearch"></SearchBar>
@@ -24,7 +24,6 @@ import MangaCard from './manga-card.vue'
 import {getTopManga} from '@/assets/services/api/AnimRepo'
 import axios from 'axios'
 import FilterButton from './filterButton.vue'
-import Navbar from './navBar.vue'
 import SearchBar from './searchBar.vue'
 
 export default{
@@ -32,7 +31,6 @@ export default{
     components: 
     { MangaCard,
       FilterButton,
-      Navbar,
       SearchBar,
     },
     data(){
@@ -62,7 +60,7 @@ export default{
     
     updateFavorites(newFavorite){
 
-      var index = this.favoriteAnimes.findIndex(animeF => (animeF.mal_id === newFavorite.mal_id));
+      var index = this.favoriteMangas.findIndex(mangaF => (mangaF.mal_id === newFavorite.mal_id));
 
       if(index === -1){
         this.favoriteMangas.push(newFavorite);
@@ -72,7 +70,7 @@ export default{
       }
 
       //stock the tab in local storage
-      localStorage.setItem("favoris", JSON.stringify(this.favoriteMangas));    
+      localStorage.setItem("favoris-m", JSON.stringify(this.favoriteMangas));    
     },
 
     /* FILTER METHODS */
@@ -184,6 +182,29 @@ export default{
 </script>
 
 <style>
+.cards{
+    margin:auto;
+    max-width: 1000px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+
+}
+
+.cards::after{
+  content: "";
+  flex-basis: 150px;
+}
+
+
+.filters {
+  margin: 1em auto;
+  max-width: 50%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 
 
 </style>

@@ -43,7 +43,7 @@ export default {
 input, 
 .submit{
   color: #fff;
-  font-family: Nunito;
+  font-family: 'Jost';
   padding: 0;
   margin: 1em;
   border: 0;
@@ -53,10 +53,10 @@ input,
 #cover{
   width: 100%;
   padding: 1em;
-  margin: 5em auto 0 auto;
-  background-color: #E4A4A4ff;
+  margin: 3em auto 0 auto;
+  background-color: #a09bf3;
   border-radius: 20px;
-  box-shadow: 0 10px 40px #E4A4A4ff, 0 0 0 20px #ffffffeb;
+  box-shadow: 0 10px 40px #F0AEF6ff, 0 0 0 20px #ffffffeb;
   transform: scale(0.6);
 }
 
@@ -67,8 +67,12 @@ input[type="text"]{
   line-height: 1;
 }
 
+input[type="text"]:focus{
+  outline: none;
+}
+
 input[type="text"]::placeholder {
-  color:#EEE1D9ff;
+  color:#F6D7F6ff;
 }
 
 #s-cover{

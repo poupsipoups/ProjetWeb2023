@@ -5,7 +5,7 @@
                 <h5>{{anime?.title}}</h5>
             </div>
             <AnimeDetails v-if="detailsVisible" :anime="anime" v-on:close="closeDetails"></AnimeDetails>
-            <button class="btn-favori"  @click="handleFavorites()"><i class="fas fa-heart"></i></button>
+            <button :class="['btn-favori', { 'active': isActive }]"  @click="handleFavorites()"><i class="fas fa-heart"></i></button>
     </div>
 </template>
 
@@ -26,9 +26,11 @@ export default{
         return{
             //detailsVisible : false,
             detailsVisible : false,
+            isActive: false,
             
         }
     },
+   
     methods:{
         openDetails(){
             this.detailsVisible = true;
@@ -38,21 +40,18 @@ export default{
         }, 
             /* FAVORITES */
 
-    handleFavorites(){
-      this.updateFavorites(this.anime);
-    },
+        handleFavorites(){
+        this.updateFavorites(this.anime);
+            this.isActive = !this.isActive;
+        }
+        },
     }
-}
+
 
 </script>
 
 <style>
     .card{
-        /* flex: 1 1 auto;
-        max-width: 20%;
-        width: 20%;
-        margin: 2em 0; 
-        height: 300px; */
         cursor: pointer;
         position: relative; 
         flex-basis: 150px;
@@ -75,7 +74,7 @@ export default{
         position: absolute;
         width: 100%;
         height: 100%;
-        background: rgba(182, 123, 105, 0.5);
+        background: rgba(160, 155, 243, 0.7);
         top: 0;
         left:0;
    
@@ -99,7 +98,7 @@ export default{
   border: none;
   cursor: pointer;
   font-size: 1em;
-  color:  #54889Eff;
+  color:  #AF56EBff;
   padding: 0;
   position: absolute;
   top: 1%;
@@ -108,6 +107,10 @@ export default{
 
 .btn-favori:hover {
   color: red;
+}
+
+.btn-favori.active {
+    color: red;
 }
 
 </style>

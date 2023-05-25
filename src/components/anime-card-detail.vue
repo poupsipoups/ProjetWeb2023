@@ -1,10 +1,10 @@
 <template>
     <div class ="popup">
-        <div class="popup-inner">
-            <div class="popup-header">
-                <div class="animeImage">
+        <div class="animeImage">
                     <img :src="anime?.images.jpg.image_url" alt="anime s image">
                 </div>
+        <div class="popup-inner">
+            <div class="popup-header"> 
                 <h2>{{ anime.title }}</h2>
                 <button type="button" @click="close()">X</button>
                 
@@ -85,23 +85,26 @@ export default{
     left: 0;
     bottom: 0;
     right: 0; 
-    background : linear-gradient(to right bottom, hotpink, tomato);
+    background : linear-gradient(to right bottom, #B1E5EFff,  #fff);
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 950;
+    overflow: auto;
 
   }
 
   .popup-inner {
-  background-color: white;
+    background-color: white;
   padding: 20px;
   max-width: 600px;
-  width: 90%;
   max-height: 80%;
-  position: relative;
-  overflow: visible;
+  width: 100%;
+  position: absolute;
+  margin: 3em;
   border-radius: 1vh;
-  background: linear-gradient(to right bottom, rgba(255,255,255,0.7),rgba(255,255,255,0.3));
+  overflow: auto;
+  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
 }
   
   .popup-header {
@@ -115,7 +118,7 @@ export default{
 .popup-header h2 {
   margin: auto;
   font-size:1em;
-  color: tomato;
+  color: #A09BF3ff;
 
 }
 
@@ -129,13 +132,14 @@ export default{
   right: 10px;
 }
 
-.popup-inner .animeImage{
-    max-width: 25%;
+.animeImage{
+    max-width: 20%;
     z-index: auto;
     position : absolute;
-    top:-10%;
-    left:-8%;
+    top:1%;
+    left:1%;
     margin : 1em;
+    z-index: 955;
 
 }
 

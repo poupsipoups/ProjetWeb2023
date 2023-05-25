@@ -57,6 +57,7 @@
 .dropdown {
   position: relative;
   display: inline-block;
+  margin: 1em;
 }
 
 .dropdown-toggle {
@@ -68,7 +69,7 @@
   border-radius: 1.5em;
   cursor: pointer;
   text-align: left;
-  box-shadow: 0 2px 10px #E4A4A4ff, 0 0 0 4px #ffffffeb;
+  box-shadow: 0 2px 10px #F0AEF6ff, 0 0 0 4px #ffffffeb;
 }
 
 .dropdown-toggle::after {
@@ -95,9 +96,9 @@
   padding: 5px 0;
   margin: 2px 0 0;
   font-size: 14px;
-  background-color: pink;
+  background-color: #fff;
   border: none;
-  border-radius: 10px;
+  border-radius: 20px;
   transition: opacity 0.3s ease-in-out;
 }
 
@@ -121,7 +122,8 @@
 }
 
 .dropdown-menu li:hover {
-  background-color: #f5f5f5;
+  background-color: #f6d7f6 ;
+  color:#AF56EBff;
 }
 
 .dropdown-menu li:first-child {
