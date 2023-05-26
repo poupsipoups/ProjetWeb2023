@@ -9,7 +9,7 @@
     <FilterButton :options="yearOptions" defaultOption="Year" @selection="filterYear"></FilterButton>
     <FilterButton :options="sortingOption" defaultOption="SortBy" @selection="sortMangas"></FilterButton>
 
-    <div class="cards">
+    <div class="cards" @scroll="endScroll">
       <MangaCard
         v-for="manga in filteredList"
         :key="manga?.mal_id"
@@ -50,12 +50,28 @@ export default{
       yearOptions : yearsObject,
       sortingOption : [{name:"Popularity", value:"popularity"}, {name:"Name", value:"name"}, {name:"Airing date", value:"airing"}, {name:"Score", value:"score"}],
       favoriteMangas : [],
+      page: 1,
     }
   },
   created:function(){
     this.chargeMangaDatas()
   },
   methods:{
+
+    async endScroll(){
+
+      const bodyHeight = document.body.scrollHeight;
+      const scrollPos = window.innerHeight + window.scrollY;
+
+      if(scrollPos >= bodyHeight){
+        //charge new datas
+        const newPage = await getTopManga(this.page);
+        this.mangaList = [...this.mangaList, ...newPage];
+        this.filteredList = this.mangaList;
+        this.page++;
+      }
+
+    },
 
     
     updateFavorites(newFavorite){
@@ -81,10 +97,10 @@ export default{
         this.filteredList = this.mangaList;
       }
       else{
-      this.filteredList = this.mangaList.filter(anime => {
+      this.filteredList = this.mangaList.filter(manga => {
         let genreTab = [];
-        for (let i in anime.genres) {
-          genreTab.push(anime.genres[i].name);
+        for (let i in manga.genres) {
+          genreTab.push(manga.genres[i].name);
         }
         
         if(genreTab.includes(genre.value))
@@ -101,7 +117,7 @@ export default{
         this.filteredList = this.mangaList;
       }
       else{
-      this.filteredList = this.mangaList.filter(anime => anime.year===year.value);
+      this.filteredList = this.mangaList.filter(manga => manga.year===year.value);
       }
 
     },
@@ -160,13 +176,14 @@ export default{
     /* CHARGING DATA METHODS */
 
     async chargeMangaDatas (){
-      this.mangaList = await getTopManga();
+      this.mangaList = await getTopManga(this.page);
       this.filteredList = this.mangaList;
+      this.page++;
     },
 
     async handleSearch (search){
       if(search !== ""){
-        this.mangaList = (await axios.get(`https://api.jikan.moe/v4/anime?q=${search}`)).data.data;
+        this.mangaList = (await axios.get(`https://api.jikan.moe/v4/manga?q=${search}`)).data.data;
       }
       else{
         this.mangaList = await getTopManga();
@@ -177,6 +194,12 @@ export default{
     },
 
   },
+  mounted() {
+    window.addEventListener('scroll', this.endScroll);
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.endScroll);
+  }
 }
 
 </script>
