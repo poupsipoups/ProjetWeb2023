@@ -117,11 +117,12 @@
   margin-bottom: 5px;
 }
 
-.dropdown:hover .dropdown-menu {
+.dropdown:hover .dropdown-menu{
   display: block;
 }
 
 .dropdown-menu li:hover {
+  display: block;
   background-color: #f6d7f6 ;
   color:#AF56EBff;
 }

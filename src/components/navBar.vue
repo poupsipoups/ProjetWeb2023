@@ -6,18 +6,18 @@
           <router-link to="/anime"><p><strong>Poups</strong>' corner</p></router-link>
           <!-- <a href="/anime"><strong>Poups</strong>' corner</a> -->
         </div>
-          <div class="milieu">
+        <div class="milieu">
           <ul class="links">
               <li><router-link to="/anime" class="link">Anime List</router-link></li>
               <li><router-link to="/manga" class="link">Manga List</router-link></li>
           </ul>
-          </div>
-          <div class="droite">
+        </div>
+        <div class="droite">
           <a href="#" class="action_btn"><router-link to="/favorites">My favourites</router-link></a>
           <div class="toggle_btn" @click="toggleBtn">
             <i class="fa-solid fa-bars"></i>
           </div>
-      </div>
+        </div>
 
         <div class="dropdown-nav">
           <li><router-link to="/anime" class="link">Anime List</router-link></li>

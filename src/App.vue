@@ -1,20 +1,17 @@
 <template>
-      <Navbar></Navbar>
+  <Navbar></Navbar>
     
   <div>
     <router-view></router-view>
   </div>
 
-    <FooterBanner></FooterBanner>
-
+  <FooterBanner></FooterBanner>
    
 </template>
 
 <script>
 import Navbar from './components/navBar.vue'
 import FooterBanner from './components/footer.vue'
-
-//import axios from 'axios'
 
 export default {
   name: 'App',
@@ -26,7 +23,6 @@ export default {
 </script>
 
 <style>
-
 
 
 html{

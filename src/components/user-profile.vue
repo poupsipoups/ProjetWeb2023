@@ -1,22 +1,24 @@
 <template>
-    <h2>Salut toi !</h2>
+    <div class="head">
+        <h2>Salut toi !</h2>
+    </div>
 
     <h3>Tes animés préférés</h3>
     <div class="cards">
-    <anime-card 
-        v-for="anime in animeFav"
-        :key="anime?.mal_id"
-        :anime="anime"
-        />
-    </div>
+        <anime-card 
+            v-for="anime in animeFav"
+            :key="anime?.mal_id"
+            :anime="anime"
+            />
+        </div>
     <h3>Tes mangas préférés</h3>
     <div class="cards">
-    <manga-card
-        v-for="manga in mangaFav"
-        :key="manga?.mal_id"
-        :manga="manga">
-    </manga-card>
-</div>
+        <manga-card
+            v-for="manga in mangaFav"
+            :key="manga?.mal_id"
+            :manga="manga">
+        </manga-card>
+    </div>
 </template>
 
 <script>
@@ -49,6 +51,7 @@ export default{
 </script>
 
 <style>
+
 .cards{
     margin:auto;
     max-width: 1000px;

@@ -170,25 +170,4 @@ input[type="text"]::placeholder {
   background-color: #fff;
 }
 
-
-
-
-
-
-
-/* .search{
-  width: 75%;
-}
-
-.searchBar input[type="submit"]{
-  width: 50px;
-  height: 50px;
-  background-image: url(https://cdn-icons-png.flaticon.com/512/6671/6671414.png);
-  background-repeat: no-repeat;
-  background-size: contain;
-  color:transparent;
-  background-color: transparent;
-  cursor: pointer;
-  
-} */
 </style>
