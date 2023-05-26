@@ -10,7 +10,7 @@
     </div>
   
 
-    <div class="cards">
+    <div class="cards" @scroll="endScroll">
       <anime-card 
         v-for="anime in filteredList"
         :key="anime?.mal_id"
@@ -18,6 +18,7 @@
         :favorites="favoriteAnimes"
         :updateFavorites="updateFavorites"/>
     </div>
+    
 </template>
 
 <script>
@@ -52,12 +53,32 @@ export default{
       yearOptions : yearsObject,
       sortingOption : [{name:"Popularity", value:"popularity"}, {name:"Name", value:"name"}, {name:"Airing date", value:"airing"}, {name:"Score", value:"score"}],
       favoriteAnimes : [],
+      page: 1,
     }
   },
   created:function(){
     this.chargeAnimeDatas()
   },
   methods:{
+
+    /* SCROLL CALL */
+
+    async endScroll(){
+
+      console.log("je suis appelé")
+
+      const bodyHeight = document.body.scrollHeight;
+      const scrollPos = window.innerHeight + window.scrollY;
+
+      if(scrollPos >= bodyHeight){
+        //charge new datas
+        const newPage = await getTopAnime(this.page);
+        this.animeList = [...this.animeList, ...newPage];
+        this.filteredList = this.animeList;
+        this.page++;
+      }
+
+    },
 
 
     /* FAVORITES */
@@ -176,8 +197,9 @@ export default{
     /* CHARGING DATA METHODS */
 
     async chargeAnimeDatas (){
-      this.animeList = await getTopAnime();
+      this.animeList = await getTopAnime(this.page);
       this.filteredList = this.animeList;
+      this.page++;
     },
 
     async handleSearch (search){
@@ -193,6 +215,12 @@ export default{
     },
 
   },
+  mounted() {
+    window.addEventListener('scroll', this.endScroll);
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.endScroll);
+  }
 }
 
 </script>

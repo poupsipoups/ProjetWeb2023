@@ -1,47 +1,11 @@
 import axios from 'axios';
 
-// async function getTopAnime() {
-//     let totalResult = [];
-  
-//     for (let page = 1; page <= 2; page++) {
-//       let response = await axios.get(`https://api.jikan.moe/v4/top/anime`, {
-//         params: { page: page, limit:100 }
-//       });
-//       await new Promise(resolve => setTimeout(resolve, 1000));
-  
-//       totalResult = totalResult.concat(response.data.data);
-//     }
 
- 
-  
-//     console.log(totalResult);
+async function getTopAnime(page) {
+  let response = await axios.get(`https://api.jikan.moe/v4/top/anime?page=${page}`);
 
-    
-  
-//     return totalResult;
-//   }
-
-async function getTopAnime() {
-    let totalResult = [];
-  
-    for (let page = 1; page <= 3; page++) {
-      let responseTv = await axios.get(`https://api.jikan.moe/v4/top/anime`, {
-        params: { page: page, type: "TV" }
-      });
-  
-      // let responseMovie = await axios.get(`https://api.jikan.moe/v4/top/anime`, {
-      //   params: { page: page, type: "Movie" }
-      // });
-  
-      // totalResult = totalResult.concat(responseTv.data.data, responseMovie.data.data);
-  
-      //await new Promise(resolve => setTimeout(resolve, 1000));
-      totalResult = responseTv.data.data.sort(()=> Math.random()-0.5);
-    }
-  
-    console.log(totalResult);
-  
-    return totalResult;
+  console.log(response.data.data)
+  return response.data.data;
   }
   
 async function getAnimeCharacters(id){
