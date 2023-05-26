@@ -1,5 +1,9 @@
 <template>
-  <div class="lofi"></div>
+  <div class="lofi">
+    <div class="title">
+      <h3>Hi ! You can list your favorites animes and manga here !</h3>
+    </div>
+  </div>
     <div class="titre">
         <SearchBar placeHolder="Find you anime..." @search="handleSearch"></SearchBar>
     </div>
@@ -107,10 +111,24 @@ export default{
 
 .filters {
   margin: 1em auto;
-  max-width: 50%;
+  max-width: 60%;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.title{
+  max-width: 50%;
+  height: 3em;
+  background-color: rgba(255,255,255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #AF56EBff;
+  padding: 0.5em;
+  border-radius: 10px;
+  font-family: 'Jost', sans-serif;
+  font-weight: bold;
 }
 
 

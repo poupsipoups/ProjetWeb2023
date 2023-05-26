@@ -47,6 +47,9 @@ body{
   background-size: cover;
   background-position: center;
   height: 40em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
