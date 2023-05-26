@@ -1,5 +1,4 @@
-import {getTopManga} from '@/assets/services/api/AnimRepo'
-import axios from 'axios'
+import {getTopManga, getSearchManga} from '@/assets/services/api/AnimRepo'
 
 /* CHARGING DATA METHODS */
 
@@ -11,7 +10,7 @@ import axios from 'axios'
 
   async function handleSearch (search){
     if(search !== ""){
-      this.mangaList = (await axios.get(`https://api.jikan.moe/v4/manga?q=${search}`)).data.data;
+      this.mangaList = await getSearchManga(search);
     }
     else{
       this.mangaList = await getTopManga();

@@ -40,7 +40,6 @@
             } else {
                 this.isOpen = !this.isOpen;
             }
-  
         },
 
       selectOption(option) {

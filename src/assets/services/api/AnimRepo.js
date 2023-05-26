@@ -26,28 +26,21 @@ async function getTopManga(page){
 async function getMangaCharacters(id){
   let response = await axios.get(`https://api.jikan.moe/v4/manga/${id}/characters`);
 
-  console.log(response.data.data);
-
   return response.data.data.slice(0,20);
 }
 
-// async function getRecommendAnime(){
-//     let response = await axios.get('https://api.jikan.moe/v4/recommendations/anime');
 
-//     console.log(response.data.data)
+async function getSearchAnime(search){
+    let response = await axios.get(`https://api.jikan.moe/v4/anime?q=${search}`);
 
-//     return response.data.data;
-// }
+    return response.data.data;
+}
 
-// async function getRecommendManga(){
-//     let response = await axios.get('https://api.jikan.moe/v4/recommendations/manga');
+async function getSearchManga(search){
+  let response = await axios.get(`https://api.jikan.moe/v4/manga?q=${search}`);
 
-//     return response.data.data;
-// }
-
-// async function getSearcAnime(animeId){
-//     let response = await axios.get('')
-// }
+  return response.data.data;
+}
 
 
-export {getTopAnime, getAnimeCharacters, getTopManga, getMangaCharacters};
+export {getTopAnime, getAnimeCharacters, getTopManga, getMangaCharacters, getSearchAnime, getSearchManga};

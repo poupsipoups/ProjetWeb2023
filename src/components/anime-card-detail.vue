@@ -38,6 +38,7 @@ import {getAnimeCharacters} from '@/assets/services/api/AnimRepo'
 
 export default{
     name: 'AnimeDetails',
+
     props :{
         anime: { 
             type: Object,
@@ -47,12 +48,18 @@ export default{
             type : Boolean,
         }
     },
+
     data(){
 
         return{
         characters: [],
         }
     },
+
+    created:function(){
+        this.chargeCharacters()
+    },
+
     methods:{
         close(){
             this.$emit('close');
@@ -71,9 +78,6 @@ export default{
         },
 
     },
-    created:function(){
-        this.chargeCharacters()
-    }
 }
 </script>
 
